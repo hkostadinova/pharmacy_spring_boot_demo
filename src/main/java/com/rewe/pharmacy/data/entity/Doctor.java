@@ -1,12 +1,8 @@
 package com.rewe.pharmacy.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
@@ -17,13 +13,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@ToString
 public class Doctor extends BaseEntity {
 
     private String name;
 
+    @Column(name = "specialty")
     private String specialty;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "doctor_id")
     @JsonIgnore
     private Set<Recipe> recipes;
 }
