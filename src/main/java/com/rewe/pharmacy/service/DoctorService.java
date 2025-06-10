@@ -10,4 +10,5 @@ public interface DoctorService {
     Doctor createDoctor(Doctor doctor);
     Doctor updateDoctor(Doctor doctor, long id);
     void deleteDoctor(long id);
+    Doctor findDoctorByIdWithRecipes(long id);
 }
