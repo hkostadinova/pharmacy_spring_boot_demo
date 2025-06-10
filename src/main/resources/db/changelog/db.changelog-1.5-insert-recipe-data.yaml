@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - preConditions:
+  - changeSet:
+      id: 1.5
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.5"
+      changes:
+          - insert:
+              tableName: recipe
+              columns:
+                - column:
+                    name: creation_date
+                    value: '2023-02-02'
+                - column:
+                    name: recipe_number
+                    value: P102N
+                - column:
+                    name: doctor_id
+                    value: 1
+          - insert:
+              tableName: recipe
+              columns:
+                - column:
+                    name: creation_date
+                    value: '2023-02-02'
+                - column:
+                    name: recipe_number
+                    value: T102Y
+                - column:
+                    name: doctor_id
+                    value: 1
+          - insert:
+              tableName: recipe
+              columns:
+                - column:
+                    name: creation_date
+                    value: '2023-02-02'
+                - column:
+                    name: recipe_number
+                    value: P102N
+                - column:
+                    name: doctor_id
+                    value: 2
+          - insert:
+              tableName: recipe
+              columns:
+                - column:
+                    name: creation_date
+                    value: '2023-02-02'
+                - column:
+                    name: recipe_number
+                    value: T102Y
+                - column:
+                    name: doctor_id
+                    value: 2
+      rollback:
+        - delete:
+            tableName: recipe
+            where: creation_date='2023-02-02'
+
+
+

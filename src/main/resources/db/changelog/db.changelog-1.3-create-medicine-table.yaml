@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: 1.3
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.3"
+      changes:
+        - createTable:
+            tableName: medicine
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(45)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: age_appropriateness
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: needs_recipe
+                  type: boolean
+                  constraints:
+                    nullable: true
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: true
+      rollback:
+        - dropTable:
+            tableName: "medicine"
+
+
+
+

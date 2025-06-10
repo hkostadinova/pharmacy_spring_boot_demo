@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - preConditions:
+  - changeSet:
+      id: 1.2
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.2"
+      preConditions:
+        onFail: "CONTINUE"
+#        onFail: "HALT"
+#        onFail: "WARN"
+        not:
+          columnExists:
+            tableName: recipe
+            columnName: recipe_number
+      changes:
+        - addColumn:
+            tableName: recipe
+            columns:
+              - column:
+                  name: recipe_number
+                  type: varchar(45)
+        - addColumn:
+            tableName: recipe
+            columns:
+              - column:
+                  name: doctor_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseColumnNames: doctor_id
+            baseTableName: recipe
+            constraintName: fk_recipe_doctor
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: doctor
+            validate: true
+      rollback:
+        - dropColumn:
+            tableName: recipe
+            columnName: recipe_number
+        - dropColumn:
+            tableName: recipe
+            columnName: doctor_id
+

@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: 1.0
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.0"
+      changes:
+        - createTable:
+            tableName: doctor
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(45)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: specialty
+                  type: varchar(45)
+                  constraints:
+                    nullable: true
+      rollback:
+        - dropTable:
+            tableName: doctor
+
+
+
+

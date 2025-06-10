@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: 1.4
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.4"
+      changes:
+        - insert:
+            tableName: doctor
+            columns:
+              - column:
+                  name: name
+                  value: 'Ivanov'
+              - column:
+                  name: name
+                  value: 'Ivanova'
+        - insert:
+            tableName: doctor
+            columns:
+               - column:
+                   name: name
+                   value: 'Petrov'
+               - column:
+                   name: specialty
+                   value: 'Pediatrics'
+        - insert:
+            tableName: doctor
+            columns:
+              - column:
+                  name: name
+                  value: 'Ivanova'
+        - insert:
+            tableName: doctor
+            columns:
+              - column:
+                  name: name
+                  value: 'Petrov'
+        - insert:
+            tableName: doctor
+            columns:
+              - column:
+                  name: name
+                  value: 'Ivanova'
+      rollback:
+        - delete:
+            tableName: doctor
+
+
+
+

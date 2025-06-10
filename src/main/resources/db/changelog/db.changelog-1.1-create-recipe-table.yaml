@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.1
+      author: kostadinova
+      preConditions:
+        onFail: "MARK_RAN"
+        not:
+          tableExists:
+            tableName: recipe
+      context:
+        "test"
+      labels:
+        "pipeline_1,release_1"
+      tagDatabase:
+        tag: "version_1.1"
+      changes:
+        - createTable:
+            tableName: recipe
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: creation_date
+                  type: date
+                  constraints:
+                    nullable: true
+      rollback:
+        - dropTable:
+            tableName: "recipe"
+
+
+

@@ -1,0 +1,139 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: 1.6
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.6"
+      changes:
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'analgin'
+              - column:
+                  name: age_appropriateness
+                  value: 2
+              - column:
+                  name: quantity
+                  value: 10
+              - column:
+                  name: needs_recipe
+                  value: false
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'paracetamol'
+              - column:
+                  name: age_appropriateness
+                  value: 6
+              - column:
+                  name: quantity
+                  value: 20
+              - column:
+                  name: needs_recipe
+                  value: true
+        - insert:
+            tableName: medicine
+            columns:
+               - column:
+                   name: name
+                   value: 'vitamin E'
+               - column:
+                   name: age_appropriateness
+                   value: 14
+               - column:
+                   name: quantity
+                   value: 20
+               - column:
+                   name: needs_recipe
+                   value: false
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'vitamin D'
+              - column:
+                  name: age_appropriateness
+                  value: 6
+              - column:
+                  name: quantity
+                  value: 20
+              - column:
+                  name: needs_recipe
+                  value: false
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'vitamin D'
+              - column:
+                  name: age_appropriateness
+                  value: 14
+              - column:
+                  name: quantity
+                  value: 20
+              - column:
+                  name: needs_recipe
+                  value: true
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'vitamin E'
+              - column:
+                  name: age_appropriateness
+                  value: 14
+              - column:
+                  name: quantity
+                  value: 20
+              - column:
+                  name: needs_recipe
+                  value: true
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'vitamin D'
+              - column:
+                  name: age_appropriateness
+                  value: 6
+              - column:
+                  name: quantity
+                  value: 20
+              - column:
+                  name: needs_recipe
+                  value: true
+        - insert:
+            tableName: medicine
+            columns:
+              - column:
+                  name: name
+                  value: 'vitamin D'
+              - column:
+                  name: age_appropriateness
+                  value: 14
+              - column:
+                  name: quantity
+                  value: 20
+              - column:
+                  name: needs_recipe
+                  value: true
+      rollback:
+        - delete:
+            tableName: medicine
+
+
+
+
