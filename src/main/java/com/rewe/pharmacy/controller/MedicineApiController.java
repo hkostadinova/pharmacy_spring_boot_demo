@@ -32,6 +32,10 @@ public class MedicineApiController {
         return mapperUtil.getModelMapper().map(this.medicineService
                 .createMedicine(medicine), MedicineDTO.class);
     }
+    @PutMapping("/{id}")
+    public MedicineDTO updateMedicine(@RequestBody Medicine medicine, @PathVariable long id) {
+        return this.medicineService.updateMedicine(medicine, id);
+    }
     @GetMapping("/by-name/{name}")
     public List<MedicineDTO> findByName(@PathVariable String name) {
         return this.medicineService.findByName(name);
@@ -60,6 +64,11 @@ public class MedicineApiController {
     @GetMapping("/offset/{offset}/page-size/{pageSize}/field-name/{fieldName}")
     public List<Medicine> findAllPageable(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String fieldName) {
         return this.medicineService.findAllMedicines(offset, pageSize, fieldName);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMedicine(@PathVariable long id) {
+        this.medicineService.deleteMedicine(id);
     }
 
 }

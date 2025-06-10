@@ -7,6 +7,9 @@ import com.rewe.pharmacy.dto.*;
 import com.rewe.pharmacy.service.MedicineService;
 import com.rewe.pharmacy.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,6 +33,7 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    @Cacheable(cacheNames = "medicines", key = "#id")
     public MedicineDTO getMedicine(long id) {
         return
                 this.mapperUtil.getModelMapper().map(
@@ -46,6 +50,13 @@ public class MedicineServiceImpl implements MedicineService {
                         .save(mapperUtil.getModelMapper()
                                 .map(medicine, Medicine.class)), CreateMedicineDTO.class);
     }
+
+    @Override
+    @CachePut(cacheNames = "medicines", key = "#id")
+    public MedicineDTO updateMedicine(Medicine medicine, long id) {
+        return mapperUtil.getModelMapper().map(this.medicineRepository.save(medicine), MedicineDTO.class);
+    }
+
     @Override
     public List<MedicineDTO> findByName(String name) {
         return
@@ -58,10 +69,12 @@ public class MedicineServiceImpl implements MedicineService {
     public List<ResponseMedicineDTO> findResponseMedicineDTOsByAgeAppropriatenessGreaterThan(int ageAppropriateness) {
         return this.medicineRepository.findResponseMedicineDTOsByAgeAppropriatenessGreaterThan(ageAppropriateness);
     }
+
     @Override
     public List<CountMedicinesGroupByAgeAppropriateness> findNumberOfMedicinesGroupByAgeAppropriatenessHavingAgeAppropriatenessGreaterThan(int ageAppropriateness) {
         return this.medicineRepository.findNumberOfMedicinesGroupByAgeAppropriatenessHavingAgeAppropriatenessGreaterThan_2(ageAppropriateness);
     }
+
     @Override
     public List<Medicine> findByNeedsRecipeNotNull() {
         return this.medicineRepository.findAll();
@@ -71,6 +84,7 @@ public class MedicineServiceImpl implements MedicineService {
     public List<Medicine> findAllMedicines(Pageable pageable) {
         return medicineRepository.findAll(pageable).getContent();
     }
+
     @Override
     public List<Medicine> findAllMedicines(int offset, int pageSize) {
         Pageable pageable = PageRequest.ofSize(pageSize);
@@ -81,6 +95,7 @@ public class MedicineServiceImpl implements MedicineService {
         }
         return this.findAllMedicines(pageable);
     }
+
     @Override
     public List<Medicine> findAllMedicines(int offset, int pageSize, String fieldName) {
         Pageable pageable = PageRequest.of(offset, pageSize, Sort.by(fieldName));
@@ -91,6 +106,12 @@ public class MedicineServiceImpl implements MedicineService {
         }
 
         return this.findAllMedicines(pageable);
+    }
+
+    @Override
+    @CacheEvict(cacheNames = "medicines", key = "#id")
+    public void deleteMedicine(long id) {
+        this.medicineRepository.deleteById(id);
     }
 
 }
