@@ -20,4 +20,6 @@ public class CreateMedicineDTO {
     @Min(value = 0, message = "Min 0")
     @Max(value = 18, message = "Max 18")
     private int ageAppropriateness;
+
+    private int quantity;
 }

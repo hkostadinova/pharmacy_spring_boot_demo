@@ -23,4 +23,6 @@ public class MedicineDTO {
     private int ageAppropriateness;
 
     private boolean needsRecipe;
+
+    private int quantity;
 }
