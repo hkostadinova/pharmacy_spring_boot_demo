@@ -1,6 +1,7 @@
 package com.rewe.pharmacy.data.repository;
 
 import com.rewe.pharmacy.data.entity.Recipe;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -20,6 +21,7 @@ public class RecipeRepositoryTest {
 
     @Test
     void findByCreationDateTest() {
+        // given
         Recipe recipe1 = Recipe.builder()
                 .creationDate(LocalDate.of(2024, 04, 04))
                 .build();
