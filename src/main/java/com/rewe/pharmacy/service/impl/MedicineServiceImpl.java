@@ -4,6 +4,7 @@ package com.rewe.pharmacy.service.impl;
 import com.rewe.pharmacy.data.entity.Medicine;
 import com.rewe.pharmacy.data.repository.MedicineRepository;
 import com.rewe.pharmacy.dto.*;
+import com.rewe.pharmacy.exception.MedicineNotFoundException;
 import com.rewe.pharmacy.service.MedicineService;
 import com.rewe.pharmacy.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class MedicineServiceImpl implements MedicineService {
                 this.mapperUtil.getModelMapper().map(
                         this.medicineRepository
                                 .findById(id).orElseThrow(()
-                                        -> new RuntimeException("Medicine with id=" + id + " not found!")),
+                                        -> new MedicineNotFoundException("Medicine with id=" + id + " not found!", id)),
                         MedicineDTO.class);
     }
 
