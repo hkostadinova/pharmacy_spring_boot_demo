@@ -21,8 +21,7 @@ public class Doctor extends BaseEntity {
     @Column(name = "specialty")
     private String specialty;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "doctor_id")
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Recipe> recipes;
 }
