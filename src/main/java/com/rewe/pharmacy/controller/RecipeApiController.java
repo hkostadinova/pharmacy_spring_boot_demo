@@ -1,8 +1,10 @@
 package com.rewe.pharmacy.controller;
 
 import com.rewe.pharmacy.data.entity.Recipe;
+import com.rewe.pharmacy.dto.RecipeDTO;
 import com.rewe.pharmacy.service.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -15,12 +17,13 @@ public class RecipeApiController {
     private final RecipeService recipeService;
 
     @GetMapping
-    public List<Recipe> getRecipes() {
+    @PreAuthorize("hasAuthority('doctor')")
+    public List<RecipeDTO> getRecipes() {
         return this.recipeService.getRecipes();
     }
 
     @GetMapping("/{id}")
-    public Recipe getRecipe(@PathVariable long id) {
+    public RecipeDTO getRecipe(@PathVariable long id) {
         return this.recipeService.getRecipe(id);
     }
 

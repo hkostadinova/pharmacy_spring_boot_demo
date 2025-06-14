@@ -1,14 +1,15 @@
 package com.rewe.pharmacy.service;
 
 import com.rewe.pharmacy.data.entity.Recipe;
+import com.rewe.pharmacy.dto.RecipeDTO;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface RecipeService {
-    List<Recipe> getRecipes();
+    List<RecipeDTO> getRecipes();
 
-    Recipe getRecipe(long id);
+    RecipeDTO getRecipe(long id);
 
     Recipe createRecipe(Recipe recipe);
 

@@ -2,8 +2,11 @@ package com.rewe.pharmacy.service.impl;
 
 import com.rewe.pharmacy.data.entity.Recipe;
 import com.rewe.pharmacy.data.repository.RecipeRepository;
+import com.rewe.pharmacy.dto.RecipeDTO;
 import com.rewe.pharmacy.service.RecipeService;
+import com.rewe.pharmacy.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,17 +17,17 @@ import java.util.List;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final MapperUtil mapperUtil;
 
     @Override
-    public List<Recipe> getRecipes() {
-        return this.recipeRepository.findAll();
+    @PreAuthorize("hasAuthority('doctor')")
+    public List<RecipeDTO> getRecipes() {
+        return this.recipeRepository.findRecipes();
     }
 
     @Override
-    public Recipe getRecipe(long id) {
-        return this.recipeRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Recipe with id=" + id + " not found!"));
+    public RecipeDTO getRecipe(long id) {
+        return this.recipeRepository.findRecipe(id);
     }
 
     @Override
