@@ -6,6 +6,8 @@ import com.rewe.pharmacy.service.MedicineService;
 import com.rewe.pharmacy.util.MapperUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/medicines")
+@PreAuthorize("hasAuthority('seller')")
 public class MedicineApiController {
     private final MedicineService medicineService;
     private final MapperUtil mapperUtil;
@@ -28,7 +31,9 @@ public class MedicineApiController {
     }
 
     @PostMapping
-    public MedicineDTO createMedicine(@RequestBody @Valid CreateMedicineDTO medicine) {
+    public MedicineDTO createMedicine(@RequestBody @Valid CreateMedicineDTO medicine, Authentication authentication) {
+
+        authentication.getPrincipal();
         return mapperUtil.getModelMapper().map(this.medicineService
                 .createMedicine(medicine), MedicineDTO.class);
     }
