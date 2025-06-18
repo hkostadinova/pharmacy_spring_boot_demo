@@ -58,7 +58,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<Object> handleObjectNotFoundException(RuntimeException exception, WebRequest request) {
+    public ResponseEntity<Object> handleObjectNotFoundException(ObjectNotFoundException exception, WebRequest request) {
         String responseBody = "Object Not Found!";
         return handleExceptionInternal(exception, responseBody + " " + exception.getMessage(),
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
