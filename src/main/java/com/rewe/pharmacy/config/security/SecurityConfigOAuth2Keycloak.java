@@ -1,5 +1,6 @@
 package com.rewe.pharmacy.config.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +22,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfigOAuth2Keycloak {
 
+    @Value("${spring.security.oauth2.resource.jwt.issuer-uri}")
+    private String keycloakIssuerUrl;
+
     @Bean
     public JwtDecoder jwtDecoder() {
-        String issuerUri = "http://localhost:8080/realms/pharmacy-application-realm";
-        return JwtDecoders.fromIssuerLocation(issuerUri);
+        return JwtDecoders.fromIssuerLocation(keycloakIssuerUrl);
     }
+
+
 
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
