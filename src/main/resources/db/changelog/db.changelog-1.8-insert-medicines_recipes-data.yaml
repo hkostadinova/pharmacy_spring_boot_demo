@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: 1.0
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.8"
+      changes:
+        - insert:
+            tableName: medicines_recipes
+            columns:
+              - column:
+                  name: medicine_id
+                  value: 1
+              - column:
+                  name: recipe_id
+                  value: 1
+        - insert:
+            tableName: medicines_recipes
+            columns:
+              - column:
+                  name: medicine_id
+                  value: 1
+              - column:
+                  name: recipe_id
+                  value: 2
+        - insert:
+            tableName: medicines_recipes
+            columns:
+              - column:
+                  name: medicine_id
+                  value: 2
+              - column:
+                  name: recipe_id
+                  value: 3

@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+      - runningAs:
+          username: postgres
+  - changeSet:
+      id: 1.0
+      author: kostadinova
+      tagDatabase:
+        tag: "version_1.7"
+      changes:
+        - createTable:
+            tableName: medicines_recipes
+            columns:
+              - column:
+                  name: medicine_id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: recipe_id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: medicine_id
+            baseTableName: medicines_recipes
+            constraintName: fk_medicine
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: medicine
+            validate: true
+        - addForeignKeyConstraint:
+            baseColumnNames: recipe_id
+            baseTableName: medicines_recipes
+            constraintName: fk_recipe
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: recipe
+            validate: true
+      rollback:
+        - dropTable:
+            tableName: medicines_recipes
+
+
+
+
