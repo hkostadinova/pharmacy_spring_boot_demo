@@ -2,6 +2,7 @@ package com.rewe.pharmacy.controller;
 
 import com.rewe.pharmacy.data.entity.Recipe;
 import com.rewe.pharmacy.dto.RecipeDTO;
+import com.rewe.pharmacy.dto.RecipeWithMedicinesDTO;
 import com.rewe.pharmacy.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,6 +53,11 @@ public class RecipeApiController {
     public List<Recipe> getAllRecipesByCreationDateAndDoctorId(@PathVariable LocalDate creationDate,
                                                                @PathVariable String doctorName) {
         return this.recipeService.getAllRecipesByCreationDateAndDoctorNameContains(creationDate, doctorName);
+    }
+
+    @GetMapping("/recipe-with-medicines/{id}")
+    public RecipeWithMedicinesDTO getRecipeByIdWithMedicines(@PathVariable long id) {
+        return this.recipeService.findByRecipeIdWithMedicines(id);
     }
 }
 

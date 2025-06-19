@@ -3,6 +3,7 @@ package com.rewe.pharmacy.service.impl;
 import com.rewe.pharmacy.data.entity.Recipe;
 import com.rewe.pharmacy.data.repository.RecipeRepository;
 import com.rewe.pharmacy.dto.RecipeDTO;
+import com.rewe.pharmacy.dto.RecipeWithMedicinesDTO;
 import com.rewe.pharmacy.service.RecipeService;
 import com.rewe.pharmacy.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
@@ -59,5 +60,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<Recipe> getAllRecipesByCreationDateAndDoctorNameContains(LocalDate creationDate, String doctorName) {
         return this.recipeRepository.findAllByCreationDateAndDoctorNameContains(creationDate, doctorName);
+    }
+
+    @Override
+    public RecipeWithMedicinesDTO findByRecipeIdWithMedicines(long id) {
+        return mapperUtil.getModelMapper().map(this.recipeRepository.findByRecipeIdWithMedicines(id), RecipeWithMedicinesDTO.class);
     }
 }
