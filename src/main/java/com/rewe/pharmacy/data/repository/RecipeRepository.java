@@ -18,5 +18,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
    List<Recipe> findAllByCreationDateAndDoctorNameStartsWith(LocalDate dateCreation, String doctorName);
    List<Recipe> findAllByCreationDate(LocalDate dateCreation);
 
-
+   @Query(value = "SELECT r from Recipe r JOIN FETCH r.medicines WHERE r.id= :id")
+   Recipe findByRecipeIdWithMedicines(long id);
 }
