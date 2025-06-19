@@ -1,23 +1,21 @@
 package com.rewe.pharmacy.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rewe.pharmacy.validator.InvalidMedicineNames;
-import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @NamedQuery(name = "Medicine.findByName", query = "SELECT m FROM Medicine m WHERE m.name = ?1")
 @NamedQuery(name = "Medicine.findByNameAndAgeAppropriateness", query = "SELECT m FROM Medicine m " +
@@ -36,4 +34,8 @@ public class Medicine extends BaseEntity {
     private boolean needsRecipe;
 
     private int quantity;
+
+    @ManyToMany(mappedBy = "medicines")
+    @JsonIgnore
+    private Set<Recipe> recipes;
 }

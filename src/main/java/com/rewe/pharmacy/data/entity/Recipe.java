@@ -1,22 +1,20 @@
 package com.rewe.pharmacy.data.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@ToString
 public class Recipe extends BaseEntity {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -24,6 +22,14 @@ public class Recipe extends BaseEntity {
     private LocalDate creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-   // @JsonIgnore
+//    @JsonIgnore
     private Doctor doctor;
+
+    @ManyToMany
+    @JoinTable(
+            name = "medicines_recipes",
+            joinColumns = { @JoinColumn(name = "recipe_id") },
+            inverseJoinColumns = { @JoinColumn(name = "medicine_id") }
+    )
+    private Set<Medicine> medicines;
 }
