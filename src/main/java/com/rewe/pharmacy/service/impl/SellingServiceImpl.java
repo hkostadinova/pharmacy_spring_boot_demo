@@ -50,6 +50,8 @@ public class SellingServiceImpl implements SellingService {
     }
 
     @Override
+    // If sellMedicines() is called in a method of the same class in the same class Propagation.REQUIRES_NEW will not work, because of the self-invocation.
+    // The Proxy is class-level
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public boolean sellMedicines(SellMedicineDTO sellMedicineRequest) {
         // Register the recipe
@@ -69,6 +71,7 @@ public class SellingServiceImpl implements SellingService {
         // Selling medicines in a list of recipes
         sellMedicineRequests
                 .stream()
+                // sellMedicines() is in the same class -> problem with self-invocation
                 .forEach(sellMedicineRequest -> this.sellMedicines(sellMedicineRequest));
         return true;
     }
