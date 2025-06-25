@@ -47,6 +47,7 @@ public class SecurityConfigOAuth2Keycloak {
                                 authz -> authz
                                         .requestMatchers("/api/recipes/**").hasAuthority("doctor")
                                         .requestMatchers("/api/medicines/**").hasAuthority("seller")
+                                        .requestMatchers("/ws/**").permitAll()
                                         .anyRequest().authenticated()
                         )
                 .oauth2ResourceServer(oauth2 -> oauth2
