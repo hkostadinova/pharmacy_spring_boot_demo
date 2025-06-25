@@ -47,6 +47,8 @@ public class SecurityConfigOAuth2Keycloak {
                                 authz -> authz
                                         .requestMatchers("/api/recipes/**").hasAuthority("doctor")
                                         .requestMatchers("/api/medicines/**").hasAuthority("seller")
+                                        .requestMatchers("/api-docs/**").permitAll()
+                                        .requestMatchers("/swagger-ui/**").permitAll()
                                         .requestMatchers("/ws/**").permitAll()
                                         .anyRequest().authenticated()
                         )
