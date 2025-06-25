@@ -44,6 +44,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.modelmapper:modelmapper:3.1.0'
 	implementation 'org.liquibase:liquibase-core'
 	liquibaseRuntime 'org.liquibase:liquibase-core'
